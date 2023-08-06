@@ -1,0 +1,290 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% if profile %}
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <div class="col-2">
+                <img src="{{profile.profile_pic.url}}" class="rounded-circle" alt="{{profile.user.username}}" width="100" height="100">
+
+                <!-- update user only shows up for own user profile -->
+                {% if request.user.username == profile.user.username %}
+                    <a href="{% url 'edit_profile' %}" class="btn btn-outline-secondary">Edit Profile</a>
+                {% else %}
+                    <form method="POST"> {% csrf_token %}
+                        {% if isFollowing %}
+                            <button class="btn btn-outline-danger" name="follow" value="unfollow" type="submit" id="unfollow">Unfollow</button>
+                        {% else %}
+                            <button class="btn btn-outline-success" name="follow" value="follow" type="submit">Follow</button>
+                        {% endif %}
+                    </form> 
+                {% endif %}
+            </div>
+            {% if profile.name %}
+            <h1>{{ profile.name }}</h1>
+            {% else %}
+            <h1></h1>&nbsp;
+            {% endif %}
+            <h5>@{{ profile.user.username }}</h5>
+            <p>{{ profile.profile_bio }}</p>
+            <h5>{{ profile.followers.count }} Followers</h5>
+            <h5>{{ profile.following.count }} Following</h5>
+            <hr>
+
+
+            <h1>Tweets</h1><br>
+            <div class="row">
+                <div class="home-feed-container">
+                    {% if tweets %}
+                    {% for tweet in tweets %}
+                        <div class="container" id="tweet-container">
+                            <div class="row">
+                
+                                {% comment %} RETWEETED POST {% endcomment %}
+                                {% if tweet.is_retweet %}
+                                    <div class="row" id="rt-row">
+                                        <div class="col-1 tweet-col rt-content" style="align-items: center;"><i class="fa-solid fa-retweet"></i></div>
+                                        
+                                        <div class="col-10 rt-content"><a href="{% url 'profile' tweet.user.id %}"><p>{{tweet.user.profile.name}} retweeted</p></a></div>
+                                        
+                                    </div>
+                
+                                    <div class="col-1 tweet-col">
+                                        <img
+                                            src="{{ tweet.parent.user.profile.profile_pic.url }}"
+                                            class="rounded-circle"
+                                            alt="{{tweet.parent.user.username}}'s Profile Picture"
+                                            width="40"
+                                            height="40"
+                                        />
+                                        </a>
+                                    </div>
+                                    <div class="col-10">			
+                                        <div class="tweet-username-container">
+                                            {% if tweet.parent.user.profile.name %}
+                                                <h5 class="profile-name"><a href="{% url 'profile' tweet.parent.user.id %}">{{tweet.parent.user.profile.name}}</a></h5>
+                                            {% else %}
+                                                <h5 class="profile-name"></h5>
+                                            {% endif %}
+                
+                                            <a href="{% url 'profile' tweet.parent.user.id %}" id="username-link">
+                                                <p>@{{tweet.parent.user.username}}</p>
+                                            </a>
+                                            &nbsp;
+                                            <p> • {{tweet.parent.created_at|timesince}} ago</p>
+                                        </div>
+                
+                                        <a href="{% url 'show_tweet' tweet.parent.id %}" id="show-tweet-link">
+                                            <p>{{tweet.parent.body}}</p>
+                                        </a> 
+                                        <div class="home-tweet-action-container">
+                                            <div class="action-count">
+                                                <i class="fa-regular fa-comment"></i>
+                                                <p class="count">0</p>
+                                            </div>
+                
+                                            <div class="action-count">
+                                                {% comment %} {% if tweet.parent.did_user_retweet and tweet.parent.retweet_count != 0 %} {% endcomment %}
+                                                {% if user in tweet.parent.retweeters %}
+                                                    <a href="{% url 'retweet' tweet.id %}"><i class="fa-solid fa-retweet" style="color: rgb(0, 186, 124);"></i></a>
+                                                    <p class="count" style="color: rgb(0, 186, 124);">{{tweet.parent.retweet_count}}</p>
+                                                {% else %}
+                                                    <a href="{% url 'retweet' tweet.id %}"><i class="fa-solid fa-retweet"></i></a>
+                                                    <p class="count">{{tweet.parent.retweet_count}}</p>
+                                                {% endif %}
+                                            </div>
+                
+                                            <div class="action-count">
+                                                {% if user in tweet.parent.likes.all %}
+                                                <a href="{% url 'like_tweet' tweet.parent.id %}"><i class="fa-solid fa-heart" style="color: rgb(249, 24, 128)"></i></a>
+                                                <p class="count" style="color: rgb(249, 24, 128)">{{tweet.parent.likes_count}}</p>
+                                                {% else %}
+                                                <a href="{% url 'like_tweet' tweet.parent.id %}"><i class="fa fa-heart-o"></i></a>
+                                                <p class="count">{{tweet.parent.likes_count}}</p>
+                                                {% endif %} 
+                                            </div>
+                                            <div class="action-count">
+                                                <i class="fa-regular fa-bookmark"></i>
+                                                <p class="count">0</p>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                
+                                {% comment %} ORIGINAL TWEET {% endcomment %}
+                                {% else %}
+                                    <div class="row" id="rt-row">
+                                        <div class="col-1 tweet-col rt-content" style="align-items: center;"></div>
+                                        <div class="col-10 rt-content"></div>
+                                    </div>
+                                    <div class="col-1 tweet-col">
+                                        <a href="{% url 'profile' tweet.user.id %}">
+                                            <img
+                                            src="{{ tweet.user.profile.profile_pic.url }}"
+                                            class="rounded-circle"
+                                            alt="{{tweet.user.username}}'s Profile Picture"
+                                            width="40"
+                                            height="40"
+                                            />
+                                        </a>
+                                    </div>
+                                    <div class="col-10">
+                                        <div class="tweet-username-container">
+                                            {% if tweet.user.profile.name %}
+                                                <h5 class="profile-name"><a href="{% url 'profile' tweet.user.id %}">{{tweet.user.profile.name}}</a></h5>
+                                            {% else %}
+                                                <h5 class="profile-name"></h5>
+                                            {% endif %}
+                                            <a href="{% url 'profile' tweet.user.id %}" id="username-link">
+                                                <p>@{{tweet.user.username}}</p>
+                                            </a>
+                                            &nbsp;
+                                            <p> • {{tweet.created_at|timesince}} ago</p>
+                                        </div>
+                    
+                                        <a href="{% url 'show_tweet' tweet.id %}" id="show-tweet-link">
+                                            <p>{{tweet.body}}</p>
+                                        </a>
+                    
+                                        <div class="home-tweet-action-container">
+                                            <div class="action-count">
+                                                <i class="fa-regular fa-comment"></i>
+                                                <p class="count">0</p>
+                                            </div>
+                
+                                            {% comment %} RETWEETS {% endcomment %}
+                                            <div class="action-count">
+                                                {% if user in tweet.retweeters %}
+                                                    <a href="{% url 'retweet' tweet.id %}"><i class="fa-solid fa-retweet" style="color: rgb(0, 186, 124);"></i></a>
+                                                    <p class="count" style="color: rgb(0, 186, 124);">{{tweet.retweet_count}}</p>
+                                                {% else %}
+                                                    <a href="{% url 'retweet' tweet.id %}"><i class="fa-solid fa-retweet"></i></a>
+                                                    <p class="count">{{tweet.retweet_count}}</p>
+                                                {% endif %}
+                                            </div>
+                
+                                            {% comment %} LIKES {% endcomment %}
+                                            <div class="action-count">
+                                                {% if user in tweet.likes.all %}
+                                                <a href="{% url 'like_tweet' tweet.id %}"><i class="fa-solid fa-heart" style="color: rgb(249, 24, 128)"></i></a>
+                                                <p class="count" style="color: rgb(249, 24, 128)">{{tweet.likes_count}}</p>
+                                                {% else %}
+                                                <a href="{% url 'like_tweet' tweet.id %}"><i class="fa fa-heart-o"></i></a>
+                                                <p class="count">{{tweet.likes_count}}</p>
+                                                {% endif %} 
+                                            </div>
+                
+                                            {% comment %} BOOKMARKS {% endcomment %}
+                                            <div class="action-count">
+                                                <i class="fa-regular fa-bookmark"></i>
+                                                <p class="count">0</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>	
+                    {% endfor %}
+                {% endif %}
+                </div>
+            </div>
+            
+        
+        </div>
+        {% comment %} <div class="col-4">
+            <br><br><br>
+            {% if profile.profile_image %}
+                <img src="{{profile.profile_image.url}}" alt="Profile picture" class="rounded-circle" height="200" width="200">
+            {% else %}
+                <img src="{% static 'images/default_profile_picture.jpeg' %}" class="rounded-circle" alt="Default Profile Picture">
+            {% endif %}
+            <br>
+            {% if profile.homepage_link %}
+                <a href="{{profile.homepage_link}}" target="new"><i class="fa-solid fa-link" style="color: black;"></i></a>
+            {% endif %}
+            &nbsp; 
+            {% if profile.facebook_link %}
+                <a href="{{profile.facebook_link}}" target="new"><i class="fa-brands fa-facebook" style="color: black;"></i></a>
+            {% endif %}
+            &nbsp; 
+            {% if profile.instagram_link %}
+                <a href="{{profile.instagram_link}}" target="new"><i class="fa-brands fa-instagram" style="color: black;"></i></a>
+            {% endif %}
+            &nbsp; 
+            {% if profile.linkedin_link %}
+                <a href="{{profile.linkedin_link}}" target="new"><i class="fa-brands fa-linkedin" style="color: black;"></i></a>
+            {% endif %}
+            <br><br>
+            {% if profile.profile_bio %}
+                <p align="justify">
+                    {{profile.profile_bio}}
+                </p>
+            {% endif %}
+            <br><br>
+            <div class="card">
+                <div class="card-header">
+                    <strong>{{profile.follows.count}}</strong> Following
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for following in profile.follows.all|slice:3 %}
+                    <li class="list-group-item">
+                        <a href="{% url 'profile' following.user.id %}">@{{ following }}</a>
+                        {% if following in user.profile.follows.all %}
+                        <a href="{% url 'unfollow' following.user.id %}" style="color: red;">Unfollow</a>
+                        {% else %}
+                        <a href="{% url 'follow' following.user.id %}" style="color: green;">Follow</a>
+                        {% endif %} 
+                        <!-- <button class="btn btn-outline-danger" name="follow" value="unfollow" type="submit" id="unfollow">Unfollow</button> -->
+                        <!-- <button class="btn btn-outline-success" name="follow" value="follow" type="submit">Follow</button>  -->
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="card-footer">
+                    <a href="{% url 'following' profile.user.id %}">See all following</a>
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-header"><strong>{{profile.followed_by.count}}</strong> Followers</div>
+                <ul class="list-group list-group-flush">
+                    {% for following in profile.followed_by.all|slice:3 %}
+                    <li class="list-group-item">
+                        <a href="{% url 'profile' following.user.id %}">@{{ following }}</a>
+                        {% if following in user.profile.follows.all %}
+                        <a href="{% url 'unfollow' following.user.id %}" style="color: red;">Unfollow</a>
+                        {% else %}
+                        <a href="{% url 'follow' following.user.id %}" style="color: green;">Follow</a>
+                        {% endif %} 
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="card-footer">
+                    <a href="{% url 'followers' profile.user.id %}">See all followers</a>
+                </div>
+            </div>
+            <br>
+            <form method="POST">
+                {% csrf_token %}
+                {% if profile in user.profile.follows.all %}
+                <button class="btn btn-outline-danger" name="follow" value="unfollow" type="submit" id="unfollow">Unfollow</button>
+                {% else %}
+                <button class="btn btn-outline-success" name="follow" value="follow" type="submit">Follow</button>
+                {% endif %}
+            </form>
+            <br>
+            
+            <!-- update user only shows up for own user profile -->
+            {% if request.user.id == profile.user.id %}
+            <a href="{% url 'update_user' %}" class="btn btn-outline-secondary">Update Profile</a>
+            {% endif %}
+        </div> {% endcomment %}
+    </div>
+</div>
+<br>
+
+{% endif %}
+
+{% endblock %}

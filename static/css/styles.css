@@ -1,0 +1,150 @@
+body {
+    background-color: rgb(21, 32, 43);
+}
+
+h1, h2, h3, h4, h5, h6, p, span, a, hr, div {
+    color: white;
+    margin: 0;
+}
+.text-muted p {
+    color:rgb(139, 152, 165);;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    /* color: black; */
+}
+
+a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#username-link:hover {
+    text-decoration: none;
+}
+
+#show-tweet-link:hover {
+    text-decoration: none;
+}
+
+.tweet-username-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.top-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tweet-username-container {
+    padding-right: 5px;
+    margin-bottom: 2px;
+}
+
+.tweet-username-container p {
+    color: rgb(139, 152, 165);;
+}
+
+.interaction-container {
+    margin-top: 10px;
+}
+
+.interaction-container, .tweet-action-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 10px 50px; */
+    border-top: 1px solid gray;
+}
+
+b {
+    color: white;
+}
+
+#tweet-container {
+    margin: 0;
+    padding: 0 16px;
+    border-bottom: 1px solid gray;
+}
+
+.tweet-col {
+    margin-right: 12px;
+    padding: 0;
+    display:flex; 
+    justify-content: flex-end; 
+}
+
+#rt-row {
+    padding: 12px 0 0 0;
+}
+
+.row {
+    margin: 0;
+    padding-bottom: 12px;
+}
+
+.rt-content {
+    margin-top: -4px;
+    margin-bottom: 4px;
+}
+
+.col-10 {
+    padding: 0;
+}
+
+.profile-name {
+    margin-right: 4px;
+}
+
+.home-tweet-action-container {
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.action-count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.count {
+    padding: 0 12px;
+    color: rgb(139, 152, 165);;
+}
+
+i, .rt-content p {
+    color: rgb(139, 152, 165);;
+}
+
+.home-feed-container {
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    padding: 0;
+    margin: 0;
+}
+
+#tweet-form {
+    background-color: rgb(21, 32, 43);
+    margin: 12px;
+}
+
+#tweet-form-btn {
+    background-color: rgb(29, 155, 240);
+    border-radius: 20px;
+    padding: 6px 16px;
+    /* margin: 12px; */
+
+}
+
+.tweet-btn-container {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+}
