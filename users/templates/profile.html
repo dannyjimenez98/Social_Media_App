@@ -4,34 +4,47 @@
 {% block content %}
 
 {% if profile %}
-<div class="container">
+
     <div class="row">
         <div class="col-8">
-            <div class="col-2">
-                <img src="{{profile.profile_pic.url}}" class="rounded-circle" alt="{{profile.user.username}}" width="100" height="100">
+            <div class="profile-info-container container">
+                <div class="profile-pic-row col-12">
+                    <img src="{{profile.profile_pic.url}}" class="rounded-circle" alt="{{profile.user.username}}" width="125" height="125">
+    
+                    <!-- update user only shows up for own user profile -->
+                    {% if request.user.username == profile.user.username %}
+                        <a href="{% url 'edit_profile' %}"><button class="btn btn-outline-secondary" id="edit-profile"><strong>Edit Profile</strong></button></a>
+                    {% else %}
+                        <form method="POST"> {% csrf_token %}
+                            {% if isFollowing %}
+                                <button class="btn btn-outline-danger" name="follow" value="unfollow" type="submit" id="unfollow"><strong>Unfollow</strong></button>
+                            {% else %}
+                                <button class="btn btn-outline-success" name="follow" value="follow" type="submit"><strong>Follow</strong></button>
+                            {% endif %}
+                        </form> 
+                    {% endif %}
+                </div>
 
-                <!-- update user only shows up for own user profile -->
-                {% if request.user.username == profile.user.username %}
-                    <a href="{% url 'edit_profile' %}" class="btn btn-outline-secondary">Edit Profile</a>
-                {% else %}
-                    <form method="POST"> {% csrf_token %}
-                        {% if isFollowing %}
-                            <button class="btn btn-outline-danger" name="follow" value="unfollow" type="submit" id="unfollow">Unfollow</button>
-                        {% else %}
-                            <button class="btn btn-outline-success" name="follow" value="follow" type="submit">Follow</button>
-                        {% endif %}
-                    </form> 
-                {% endif %}
+                <div class="profile-name-row col-12">
+                    {% if profile.name %}
+                    <p style="font-size:24px;"><strong>{{ profile.name }}</strong></p>
+                    {% else %}
+                    <p style="font-size:24px;"></p>
+                    {% endif %}
+                    <p style="font-size:18px; color: rgb(139, 152, 165);">@{{ profile.user.username }}</p>
+                    <p style="font-size:18px;">{{ profile.profile_bio }}</p>
+                </div>
+                
+                <div class="profile-follows-row col-12">
+                    <div class="follow-count">
+                        <a href=""><p><strong>{{ profile.followers.count }}</strong> <em>Followers</em></p></a>
+                    </div>
+                    &nbsp;&nbsp;
+                    <div class="follow-count">
+                        <a href=""><p><strong>{{ profile.following.count }}</strong> <em>Following</em></p></a>
+                    </div>
+                </div>
             </div>
-            {% if profile.name %}
-            <h1>{{ profile.name }}</h1>
-            {% else %}
-            <h1></h1>&nbsp;
-            {% endif %}
-            <h5>@{{ profile.user.username }}</h5>
-            <p>{{ profile.profile_bio }}</p>
-            <h5>{{ profile.followers.count }} Followers</h5>
-            <h5>{{ profile.following.count }} Following</h5>
             <hr>
 
 
@@ -282,8 +295,6 @@
             {% endif %}
         </div> {% endcomment %}
     </div>
-</div>
-<br>
 
 {% endif %}
 
