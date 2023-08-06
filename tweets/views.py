@@ -6,22 +6,22 @@ from django.contrib import messages
 
 # handles display of tweets on home feed and create/publish a tweet
 def home_view(request):
-    model = Tweet
-
-    # tweet creation form
-    form = TweetForm(request.POST or None)
-    if request.method == 'POST':
-        if form.is_valid():
-            tweet = form.save(commit=False)
-            tweet.user = request.user
-            tweet.save()
-            return redirect('home')
+    if request.user.is_authenticated:
+        # tweet creation form
+        form = TweetForm(request.POST or None)
+        if request.method == 'POST':
+            if form.is_valid():
+                tweet = form.save(commit=False)
+                tweet.user = request.user
+                tweet.save()
+                return redirect('home')
+        # tweets to be displayed on homepage
+        tweets = Tweet.objects.all().order_by('-created_at')
+        return render(request, 'home.html', {'tweets': tweets, 'form': form})
+    else:
+        tweets = Tweet.objects.all().order_by('-created_at')
+        return render(request, 'home.html', {'tweets': tweets})
     
-    # tweets to be displayed on homepage
-    tweets = Tweet.objects.all().order_by('-created_at')
-    
-    return render(request, 'home.html', {'tweets': tweets, 'form': form})
-
 def like_tweet(request, pk):
     if request.user.is_authenticated:
         tweet = Tweet.objects.get(id=pk)
