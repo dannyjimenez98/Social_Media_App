@@ -21,7 +21,8 @@ def home_view(request):
     else:
         tweets = Tweet.objects.all().order_by('-created_at')
         return render(request, 'home.html', {'tweets': tweets})
-    
+
+# handles liking and unliking of tweets by user
 def like_tweet(request, pk):
     if request.user.is_authenticated:
         tweet = Tweet.objects.get(id=pk)
@@ -38,7 +39,7 @@ def retweet(request, pk):
     if request.user.is_authenticated:
         user = request.user
         tweet = Tweet.objects.get(id=pk)
-        
+
         # if its a RT of a post
         if tweet.is_retweet():
             
@@ -67,6 +68,7 @@ def retweet(request, pk):
         messages.success(request, ("Your must be logged in to view that page"))
         return redirect('home')
 
+# handles clicking of tweet to show tweet in detail
 def show_tweet(request, pk):
     tweet = Tweet.objects.get(id=pk)
     if tweet:

@@ -1,5 +1,9 @@
-body {
+body, nav {
     background-color: rgb(21, 32, 43);
+}
+
+.navbar {
+    padding: 5px 16px;
 }
 
 h1, h2, h3, h4, h5, h6, p, span, a, hr, div {
@@ -122,8 +126,7 @@ i, .rt-content p {
 }
 
 .home-feed-container {
-    border-left: 1px solid gray;
-    border-right: 1px solid gray;
+    /* border: 1px solid gray; */
     padding: 0;
     margin: 0;
 }
@@ -146,5 +149,22 @@ i, .rt-content p {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+}
 
+.navbar-btn, .login-btn {
+    border-radius: 20px;
+    padding: 6px 16px;
+    color: white;
+}
+
+.navbar-btn {
+    background-color: rgb(21, 32, 43);
+}
+
+.navbar-btn:hover {
+    background-color: rgb(29, 155, 240);
+}
+
+.login-btn {
+    background-color: rgb(29, 155, 240);
 }
