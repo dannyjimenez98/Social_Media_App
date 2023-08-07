@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <h1>Following</h1>
+    {% for follow in follows %}
+    <div class="container follow-container">
+        <div class="row">
+            <div class="col-1 tweet-col">
+                <img
+                    src="{{ follow.follow_user.profile_pic.url }}"
+                    class="rounded-circle"
+                    alt="{{follow.follow_user.user.username}}'s Profile Picture"
+                    width="40"
+                    height="40"
+                />
+            </div>
+    
+            <div class="col-10">			
+                <div class="follow-username-container">
+                    {% if follow.follow_user.name %}
+                        <h5 class="profile-name"><a href="{% url 'profile' follow.follow_user.user.id %}">{{follow.follow_user.name}}</a></h5>
+                    {% else %}
+                        <h5 class="profile-name"></h5>
+                    {% endif %}
+    
+                    <a href="{% url 'profile' follow.follow_user.user.id %}" id="username-link">
+                        <p>@{{follow.follow_user.user.username}}</p>
+                    </a>
+                </div>
+                <p>{{follow.follow_user.profile_bio}}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{%endblock%}

@@ -37,11 +37,11 @@
                 
                 <div class="profile-follows-row col-12">
                     <div class="follow-count">
-                        <a href=""><p><strong>{{ profile.followers.count }}</strong> <em>Followers</em></p></a>
+                        <a href="{% url 'followers' profile.id %}"><p><strong>{{ profile.followers.count }}</strong> <em>Followers</em></p></a>
                     </div>
                     &nbsp;&nbsp;
                     <div class="follow-count">
-                        <a href=""><p><strong>{{ profile.following.count }}</strong> <em>Following</em></p></a>
+                        <a href="{% url 'following' profile.id %}"><p><strong>{{ profile.following.count }}</strong> <em>Following</em></p></a>
                     </div>
                 </div>
             </div>

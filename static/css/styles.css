@@ -212,3 +212,21 @@ i, .rt-content p {
 .follow-count em {
     color: rgb(139, 152, 165);
 }
+
+.follow-container {
+    margin: 0;
+    padding: 0 16px;
+    border-bottom: 1px solid gray;
+}
+
+.follow-username-container {
+    padding-right: 5px;
+    margin-bottom: 2px;
+    display: flex;
+    flex-direction: column;
+}
+
+.follow-username-container p{
+    color: rgb(139, 152, 165);
+}
+

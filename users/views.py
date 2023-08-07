@@ -30,6 +30,21 @@ def profile(request, pk):
         messages.success(request, "You must be logged in to view this page")
         return redirect('home')
 
+def get_followers(request, pk):
+        profile = Profile.objects.get(user_id=pk).user.id
+
+        # returns queryset of profile's follower relationships
+        followers = Follow.objects.filter(follow_user=profile)
+        return render(request, 'followers.html', {'profile':profile, 'followers':followers})
+
+
+def get_following(request, pk):
+    profile = Profile.objects.get(user_id=pk).user.id
+
+    # returns queryset of profile's following relationships
+    follows = Follow.objects.filter(user=profile)
+    return render(request, 'following.html', {'profile':profile, 'follows':follows})
+
 def signup(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
@@ -99,4 +114,4 @@ def edit_profile(request):
     else:
         messages.success(request, ("You must be logged in to view that page"))
         return redirect('home')
-    
+
