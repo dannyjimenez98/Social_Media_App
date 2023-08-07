@@ -4,7 +4,7 @@ Users can create an account, log in and out, edit their profile, retweet, like, 
 This is a personal project to help me get familiar with Django.
 
 ## How to Run the Project
-1.  Clone repository by entering the following into your command line: 
+1.  Clone repository by entering the following into your terminal: 
 ```bash
 git clone https://github.com/dannyjimenez98/Social_Media_App.git
 ```
@@ -23,4 +23,19 @@ source ./venv/bin/activate
 #### Activating Virtual Environment (Windows)
 ```bash
 venv/Scripts/activate
+```
+4. Install project's required dependencies
+```bash
+pip install -r requirements.txt
+```
+5. Make migrations and migrate
+```bash
+./manage.py makemigrations
+```
+```bash
+./manage.py migrate
+```
+5. Finally, run the server using the following command
+```bash
+./manage.py runserver
 ```
