@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Tweet
-from users.models import Profile
+from users.models import Profile, Follow
 from .forms import TweetForm
 from django.contrib import messages
 
@@ -15,8 +15,13 @@ def home_view(request):
                 tweet.user = request.user
                 tweet.save()
                 return redirect('home')
-        # tweets to be displayed on homepage
-        tweets = Tweet.objects.all().order_by('-created_at')
+            
+        # tweets from followed users to be displayed on homepage
+        user = Profile.objects.get(user=request.user)
+        followed_users = []
+        for followed_user in Follow.objects.filter(user=user):
+            followed_users.append(followed_user.follow_user.user)
+        tweets = Tweet.objects.filter(user__in=followed_users).order_by('-created_at')
         return render(request, 'home.html', {'tweets': tweets, 'form': form})
     else:
         tweets = Tweet.objects.all().order_by('-created_at')
