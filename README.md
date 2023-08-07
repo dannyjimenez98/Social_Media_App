@@ -8,7 +8,19 @@ This is a personal project to help me get familiar with Django.
 ```bash
 git clone https://github.com/dannyjimenez98/Social_Media_App.git
 ```
-2. 
+2. Change into the project's directory
 ```bash
 cd Social_Media_App
+```
+3. Create and activate a python virtual environment
+```bash
+python3 -m venv venv
+```
+#### Activating Virtual Environment (Mac)
+```bash
+source ./venv/bin/activate
+```
+#### Activating Virtual Environment (Windows)
+```bash
+venv/Scripts/activate
 ```
