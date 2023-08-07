@@ -40,6 +40,6 @@ pip install -r requirements.txt
 ./manage.py runserver
 ```
 ## Project Screenshots
-![Project Screenshot Home](<Screen Shot 2023-08-06 at 8.07.51 PM.png>)
-![Project Screenshot Profile](<Screen Shot 2023-08-06 at 8.08.28 PM.png>)
+![Project Screenshot Home](<project_screenshot1.png>)
+![Project Screenshot Profile](<project_screenshot2.png>)
 
