@@ -3,6 +3,7 @@ from .models import Tweet
 from users.models import Profile, Follow
 from .forms import TweetForm
 from django.contrib import messages
+from django.db.models import Q
 
 # handles display of tweets on home feed and create/publish a tweet
 def home_view(request):
@@ -21,7 +22,7 @@ def home_view(request):
         followed_users = []
         for followed_user in Follow.objects.filter(user=user):
             followed_users.append(followed_user.follow_user.user)
-        tweets = Tweet.objects.filter(user__in=followed_users).order_by('-created_at')
+        tweets = Tweet.objects.filter(Q(user__in=followed_users)|Q(user=request.user)).order_by('-created_at')
         return render(request, 'home.html', {'tweets': tweets, 'form': form})
     else:
         tweets = Tweet.objects.all().order_by('-created_at')

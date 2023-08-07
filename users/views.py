@@ -13,7 +13,7 @@ def profile(request, pk):
     if request.user.is_authenticated:
         # requested profile user and their tweets
         profile = Profile.objects.get(user_id=pk)
-        tweets = Tweet.objects.filter(user_id=pk)
+        tweets = Tweet.objects.filter(user_id=pk).order_by('-created_at')
 
         user = Profile.objects.get(user_id=request.user.id) # currently logged in user
         isFollowing = user.following.filter(follow_user=profile).exists() # if user follows requested profile
