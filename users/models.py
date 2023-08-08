@@ -7,7 +7,6 @@ class Profile(models.Model):
     name = models.CharField(null=True, blank=True, max_length=10)
     profile_pic = models.ImageField(default='default_profile_picture.jpeg', upload_to='media/')
     profile_bio = models.CharField(null=True, blank=True, max_length=50)
-    # bookmarked_tweets = models.ForeignKey(Tweet, related_name="bookmarks", null=True, blank=True)
 
     def __str__(self):
         return self.user.username

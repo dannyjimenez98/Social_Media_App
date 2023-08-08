@@ -15,6 +15,7 @@ class Tweet(models.Model):
     body = models.CharField(max_length=140, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True) 
     likes = models.ManyToManyField(User, related_name='tweet_likes', blank=True)
+    bookmarks = models.ManyToManyField(User, related_name='tweet_bookmarks', blank=True)
 
     def likes_count(self):
         return self.likes.count()
@@ -31,6 +32,9 @@ class Tweet(models.Model):
         for obj in qs:
             user_obj_list.append(obj.user)
         return user_obj_list
+
+    def bookmarks_count(self):
+        return self.bookmarks.count()
 
     def __str__(self):
         return (f"{self.user}: "

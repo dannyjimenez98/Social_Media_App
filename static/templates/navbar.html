@@ -17,6 +17,9 @@
                   <a class="nav-link active" aria-current="page" href="{% url 'profile' user.id %}"><button class="btn navbar-btn"><i class="fa-solid fa-user" style="color: white;"></i>&nbsp;&nbsp;Profile</button></a>
                 </li>
                 <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'bookmarks_list' %}"><button class="btn navbar-btn"><i class="fa-solid fa-bookmark" style="color: white;"></i>&nbsp;&nbsp;Bookmarks</button></a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}"><button class="btn login-btn">Log out</button></a>
                 </li>
                 {% else %}

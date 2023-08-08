@@ -80,8 +80,13 @@
 								{% endif %} 
 							</div>
 							<div class="action-count">
-								<i class="fa-regular fa-bookmark"></i>
-								<p class="count">0</p>
+								{% if user in tweet.parent.bookmarks.all %}
+									<a href="{% url 'bookmark' tweet.parent.id %}"><i class="fa-solid fa-bookmark" style="color: rgb(29, 155, 240);"></i></a>
+									<p class="count" style="color: rgb(29, 155, 240);">{{tweet.parent.bookmarks_count}}</p>
+								{% else %}
+									<a href="{% url 'bookmark' tweet.parent.id %}"><i class="fa-regular fa-bookmark"></i></a>
+									<p class="count">{{tweet.parent.bookmarks_count}}</p>
+								{% endif %} 
 							</div>
 						</div>
 						
@@ -142,7 +147,7 @@
 							{% comment %} LIKES {% endcomment %}
 							<div class="action-count">
 								{% if user in tweet.likes.all %}
-								<a href="{% url 'like_tweet' tweet.id %}"><i class="fa-solid fa-heart" style="color: rgb(249, 24, 128)"></i></a>
+								<a href="{% url 'like_tweet' tweet.id %}"><i class="fa-solid fa-heart" style="color: rgb(249, 24, 128);"></i></a>
 								<p class="count" style="color: rgb(249, 24, 128)">{{tweet.likes_count}}</p>
 								{% else %}
 								<a href="{% url 'like_tweet' tweet.id %}"><i class="fa fa-heart-o"></i></a>
@@ -152,8 +157,13 @@
 
 							{% comment %} BOOKMARKS {% endcomment %}
 							<div class="action-count">
-								<i class="fa-regular fa-bookmark"></i>
-								<p class="count">0</p>
+								{% if user in tweet.bookmarks.all %}
+									<a href="{% url 'bookmark' tweet.id %}"><i class="fa-solid fa-bookmark" style="color: rgb(29, 155, 240);"></i></a>
+									<p class="count" style="color: rgb(29, 155, 240);">{{tweet.bookmarks_count}}</p>
+								{% else %}
+									<a href="{% url 'bookmark' tweet.id %}"><i class="fa-regular fa-bookmark"></i></a>
+									<p class="count">{{tweet.bookmarks_count}}</p>
+								{% endif %} 
 							</div>
 						</div>
 					</div>

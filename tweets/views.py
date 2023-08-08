@@ -93,15 +93,25 @@ def delete_tweet(request, pk):
     else:
         messages.success(request, ("Log in to delete tweet"))
         return redirect(request.META.get('HTTP_REFERER'))
-    
-# def bookmark(request, pk):
+
+# handles bookmarking a tweet
+def bookmark(request, pk):
     if request.user.is_authenticated:
-        user = request.user
         tweet = Tweet.objects.get(id=pk)
-        profile = Profile.objects.get(user_id=user.id)
-        if tweet in profile.bookmarked_tweets.filter(id=tweet.id):
-            profile.bookmarked_tweets.remove(tweet)
+        if tweet.bookmarks.filter(id=request.user.id):
+            tweet.bookmarks.remove(request.user)
         else:
-            profile.bookmarked_tweets.add(tweet)
+            tweet.bookmarks.add(request.user)
+        return redirect(request.META.get('HTTP_REFERER'))
     else:
+        messages.success(request, ("Your must be logged in to view that page"))
+        return redirect('home')
+    
+def bookmarks_list(request):
+    if request.user.is_authenticated:
+        # get tweets that were bookmarked by the  user
+        bookmarked_tweets = Tweet.objects.filter(bookmarks=request.user).order_by('-created_at')
+        return render(request, 'bookmarks.html', {'bookmarked_tweets': bookmarked_tweets})
+    else:
+        messages.success(request, ("Your must be logged in to view that page"))
         return redirect('home')
