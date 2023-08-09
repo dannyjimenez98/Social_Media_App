@@ -16,6 +16,7 @@ class Tweet(models.Model):
     created_at = models.DateTimeField(auto_now_add=True) 
     likes = models.ManyToManyField(User, related_name='tweet_likes', blank=True)
     bookmarks = models.ManyToManyField(User, related_name='tweet_bookmarks', blank=True)
+    reply_to = models.ForeignKey("self", related_name='replied_to', null=True, blank=True, on_delete=models.CASCADE) # look back on CASCADE option
 
     def likes_count(self):
         return self.likes.count()
@@ -35,6 +36,12 @@ class Tweet(models.Model):
 
     def bookmarks_count(self):
         return self.bookmarks.count()
+    
+    def is_reply(self):
+        return self.reply_to != None
+    
+    def replies_count(self):
+        return Tweet.objects.filter(reply_to=self).count()
 
     def __str__(self):
         return (f"{self.user}: "

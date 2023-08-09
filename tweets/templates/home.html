@@ -55,12 +55,15 @@
 						</a> 
 						<div class="home-tweet-action-container">
 							<div class="action-count">
-								<i class="fa-regular fa-comment"></i>
-								<p class="count">0</p>
+								{% if tweet.parent.is_reply %}
+									<i class="fa-regular fa-comment" style="color: rgb(66, 83, 100);"></i>
+								{% else %}
+									<i class="fa-regular fa-comment"></i>
+									<p class="count">{{tweet.parent.replies_count}}</p>
+								{% endif %}
 							</div>
 
 							<div class="action-count">
-								{% comment %} {% if tweet.parent.did_user_retweet and tweet.parent.retweet_count != 0 %} {% endcomment %}
 								{% if user in tweet.parent.retweeters %}
 									<a href="{% url 'retweet' tweet.id %}"><i class="fa-solid fa-retweet" style="color: rgb(0, 186, 124);"></i></a>
 									<p class="count" style="color: rgb(0, 186, 124);">{{tweet.parent.retweet_count}}</p>
@@ -129,8 +132,12 @@
 	 
 						<div class="home-tweet-action-container">
 							<div class="action-count">
-								<i class="fa-regular fa-comment"></i>
-								<p class="count">0</p>
+								{% if tweet.is_reply %}
+									<i class="fa-regular fa-comment" style="color: rgb(66, 83, 100);"></i>
+								{% else %}
+									<i class="fa-regular fa-comment"></i>
+									<p class="count">{{tweet.replies_count}}</p>
+								{% endif %}
 							</div>
 
 							{% comment %} RETWEETS {% endcomment %}

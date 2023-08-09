@@ -22,7 +22,9 @@ def home_view(request):
         followed_users = []
         for followed_user in Follow.objects.filter(user=user):
             followed_users.append(followed_user.follow_user.user)
-        tweets = Tweet.objects.filter(Q(user__in=followed_users)|Q(user=request.user)).order_by('-created_at')
+        
+        # TODO: include replies but with "User replied to" tag above
+        tweets = Tweet.objects.filter(Q(user__in=followed_users)|Q(user=request.user) & Q(reply_to=None)).order_by('-created_at')
         return render(request, 'home.html', {'tweets': tweets, 'form': form})
     else:
         tweets = Tweet.objects.all().order_by('-created_at')
@@ -78,7 +80,16 @@ def retweet(request, pk):
 def show_tweet(request, pk):
     tweet = Tweet.objects.get(id=pk)
     if tweet:
-        return render(request, 'show_tweet.html', {'tweet':tweet})
+        form = TweetForm(request.POST or None)
+        if request.method == 'POST':
+            if form.is_valid():
+                reply = form.save(commit=False)
+                reply.user = request.user
+                reply.reply_to = Tweet.objects.get(id=pk)
+                reply.save()
+                return redirect(request.META.get('HTTP_REFERER'))
+        replies = Tweet.objects.filter(reply_to=tweet)
+        return render(request, 'show_tweet.html', {'tweet':tweet, 'form': form, 'replies': replies})
     else:
         messages.success(request, ("tweet does not exist"))
         return redirect('home')

@@ -9,4 +9,5 @@ urlpatterns = [
     path('retweet/<int:pk>', views.retweet, name='retweet'),
     path('bookmark/<int:pk>', views.bookmark, name='bookmark'),
     path('bookmarks', views.bookmarks_list, name='bookmarks_list'),
+
 ]
