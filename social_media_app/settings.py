@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'django_htmx',
+    'bootstrap5',
     'tweets',
     'users'
 

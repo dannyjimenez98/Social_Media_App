@@ -2,19 +2,36 @@
 {% load static %} 
 {% block content %}
 <div class="row">
-	<div class="col-8 home-feed-container">
-		<h1 style="margin-left:12px;">Home</h1>
+	<div class="home-feed-container">
+		<h1 style="margin:12px;">Home</h1>
+		<hr>
 		{% if form %}
-		  <form method="POST" id="tweet-form">
-			  {% csrf_token %} {{form.as_p}}
-			  <div class="tweet-btn-container">
-				  <button type="submit" class="btn btn-primary" id="tweet-form-btn">Tweet</button>
-			  </div>
-		  </form>
+		<div class="container tweet-container">
+			<div class="row" style="padding-top: 12px;">
+				<div class="col-1 tweet-col">
+					<img
+					src="{{ current_user.profile_pic.url }}"
+					class="rounded-circle"
+					alt="{{current_user.username}}'s Profile Picture"
+					width="40"
+					height="40"
+					/>
+				</div>
+				<div class="col-10 tweet-form-container">
+					<form method="POST" id="tweet-form">
+						{% csrf_token %} 
+						{{form.as_p}}
+						<div class="tweet-btn-container">
+							<button type="submit" class="btn btn-primary" id="tweet-form-btn">Tweet</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 		{% endif %}
-      	<hr />
+
       	{% for tweet in tweets %}
-		<div class="container" id="tweet-container">
+		<div class="container tweet-container">
 			<div class="row">
 
 				{% comment %} RETWEETED POST {% endcomment %}
@@ -179,8 +196,6 @@
 		</div>	
 		{% endfor %}
 	</div>
-    </div>
-  </div>
 </div>
 
 {% endblock %}

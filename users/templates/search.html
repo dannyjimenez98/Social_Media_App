@@ -2,22 +2,24 @@
 {% load static %}
 
 {% block content %}
-<div class="row">
-    <h1>Explore</h1>
+<div class="row p-3">
+    <h1 class="p-3">Explore</h1>
     <input name="query"
+        class="form-control"
+        id="searchbar"
         placeholder="Search"
         hx-get="{% url 'search' %}"
         hx-target="#results"
         hx-trigger="input delay:0.2s"
         autocomplete="off"
     >
-    <section id="results">
-        <div class="results">
-            <div class="row">
-                {% include 'search_results.html' %}
+    {% comment %} <section id="results"> {% endcomment %}
+            <div class="row results" id="results">
+                
+                    {% include 'search_results.html' %}
+
             </div>
-        </div>
-    </section>
+    {% comment %} </section> {% endcomment %}
 </div>
 
 {%endblock%}

@@ -1,0 +1,13 @@
+{% load static %}
+<div class="container flex-column m-3">
+  <form class="d-flex" role="search">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchbar" list="profile_results" autocomplete="off">
+    {% comment %} <datalist id="profile_results">
+      {% for profile in profile_results %}
+        <option value="{{profile.user.username}}"/>
+      {% endfor %}
+    </datalist> {% endcomment %}
+    
+    {% comment %} <button class="btn login-btn" type="submit">Search</button> {% endcomment %}
+  </form>
+</div>

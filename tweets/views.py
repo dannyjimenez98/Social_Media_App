@@ -18,14 +18,14 @@ def home_view(request):
                 return redirect('home')
             
         # tweets from followed users to be displayed on homepage
-        user = Profile.objects.get(user=request.user)
+        current_user = Profile.objects.get(user=request.user)
         followed_users = []
-        for followed_user in Follow.objects.filter(user=user):
+        for followed_user in Follow.objects.filter(user=current_user):
             followed_users.append(followed_user.follow_user.user)
         
         # TODO: include replies but with "User replied to" tag above
         tweets = Tweet.objects.filter(Q(user__in=followed_users)|Q(user=request.user) & Q(reply_to=None)).order_by('-created_at')
-        return render(request, 'home.html', {'tweets': tweets, 'form': form})
+        return render(request, 'home.html', {'tweets': tweets, 'form': form, 'current_user':current_user})
     else:
         tweets = Tweet.objects.all().order_by('-created_at')
         return render(request, 'home.html', {'tweets': tweets})

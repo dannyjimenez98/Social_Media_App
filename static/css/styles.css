@@ -4,6 +4,19 @@ body, nav {
 
 .navbar {
     padding: 5px 16px;
+    align-items: flex-start;
+    position: fixed;
+}
+
+.navbar .container {
+    padding: 0;
+    align-items: flex-start;
+}
+
+#content {
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    padding: 0;
 }
 
 h1, h2, h3, h4, h5, h6, p, span, a, hr, div {
@@ -15,6 +28,68 @@ h1, h2, h3, h4, h5, h6, p, span, a, hr, div {
     margin: 0;
 }
 
+/* BUTTONS */
+.btn {
+    border-radius: 30px;
+    padding: 6px 16px;
+    /* color: white; */
+}
+
+.btn-primary {
+    background-color: rgb(29, 155, 240);
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: rgb(26, 140, 216);
+}
+
+.btn-link {
+    background-color: rgba(0,0,0,0);
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.btn-link:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-link:active {
+    font-weight: 700;
+}
+
+.btn-link span {
+    margin-left: 20px;
+    margin-right: 16px;
+}
+/* end Buttons */
+
+/* Forms */
+.tweet-form-container .form-control, .form-control:focus {
+    background-color: rgba(0,0,0,0);
+    color: white;
+    border: none;
+}
+
+form#tweet-form {
+    margin: 0;
+}
+
+input#searchbar {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+}
+
+input#searchbar:focus {
+    background-color: rgba(0, 0, 0, 0);
+    border: rgb(29, 155, 240);
+}
+/* end Forms */
 a {
     text-decoration: none;
     /* color: black; */
@@ -68,7 +143,7 @@ b {
     color: white;
 }
 
-#tweet-container {
+.tweet-container {
     margin: 0;
     padding: 0 16px;
     border-bottom: 1px solid gray;
@@ -149,11 +224,7 @@ i, .rt-content p {
     align-items: center;
     justify-content: flex-end;
 }
-.btn {
-    border-radius: 20px;
-    padding: 6px 16px;
-    /* color: white; */
-}
+
 
 #searchbar {
     border-radius: 50px;
@@ -234,11 +305,18 @@ i, .rt-content p {
     color: rgb(139, 152, 165);
 }
 
-.results {
 
+.list-group {
+    border-radius: 20px;
+    box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px, rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
+    padding: 0;
 }
 
 .result {
-    border-bottom: 0.5px solid gray;
     padding: 12px 16px;
+    background-color: rgb(21, 32, 43);
+}
+
+.result:not(:last-child) {
+    border-bottom: 0.5px solid gray;
 }

@@ -2,10 +2,11 @@
 {% load static %} 
 {% block content %}
 <div class="row">
-	<div class="col-8 home-feed-container">
-		<h1 style="margin-left:12px;">Bookmarks</h1>
+	<div class="home-feed-container">
+		<h1 class="p-3">Bookmarks</h1>
+		<hr>
       	{% for tweet in bookmarked_tweets %}
-		<div class="container" id="tweet-container">
+		<div class="container tweet-container">
 			<div class="row">
 					<div class="row" id="rt-row">
 						<div class="col-1 tweet-col rt-content" style="align-items: center;"></div>

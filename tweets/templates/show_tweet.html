@@ -5,7 +5,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-8">
+
             <h1>Tweet</h1>
             <br>
             <div class="container" id="tweet-container">
@@ -251,12 +251,13 @@
                     {% endif %}
                 </div>
             </div>
+            <hr>
             <br>
             {% comment %} REPLIES {% endcomment %}
             {% if not tweet.is_reply %}
                 <h3>Replies</h3>
                 {% if form %}
-                    <form method="POST" id="tweet-form">
+                    <form method="POST" id="tweet-form" placeholder="Reply">
                         {% csrf_token %} {{form.as_p}}
                         <div class="tweet-btn-container">
                             <button type="submit" class="btn btn-primary" id="tweet-form-btn">Reply</button>
@@ -343,7 +344,7 @@
                     </div>	
                 {% endfor %}
             {% endif %}
-        </div>
+
     </div>
 </div>
 

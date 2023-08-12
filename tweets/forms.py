@@ -9,8 +9,8 @@ class TweetForm(forms.ModelForm):
                                attrs={
                                    'placeholder': "What's happening?",
                                    'class':'form-control',
-                                   'rows': '3',
-                                   'style': 'resize:none',
+                                   'rows': '1',
+                                   'style': 'resize:none; color: white; font-size: 20px;',
                                    }), 
                             label="")
 

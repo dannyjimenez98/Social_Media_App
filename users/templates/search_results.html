@@ -1,8 +1,9 @@
 {% load static %}
 
 {% block content %}
+<ul class="list-group">
     {% for profile in profile_results %}
-        <div class="result">
+    <li class="list-group-item result">
             <div class="row">
                 <div class="col-1 tweet-col">
                     <img
@@ -28,6 +29,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+    </li>
     {% endfor %}
+</ul>
 {%endblock%}
