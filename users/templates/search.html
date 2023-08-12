@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <h1>Explore</h1>
+    <input name="query"
+        placeholder="Search"
+        hx-get="{% url 'search' %}"
+        hx-target="#results"
+        hx-trigger="input delay:0.2s"
+        autocomplete="off"
+    >
+    <section id="results">
+        <div class="results">
+            <div class="row">
+                {% include 'search_results.html' %}
+            </div>
+        </div>
+    </section>
+</div>
+
+{%endblock%}

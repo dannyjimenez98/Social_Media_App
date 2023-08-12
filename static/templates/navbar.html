@@ -12,6 +12,9 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'home' %}"><button class="btn navbar-btn"><i class="fa-solid fa-house" style="color:white;"></i>&nbsp;&nbsp;Home</button></a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'search' %}"><button class="btn navbar-btn"><i class="fa-solid fa-magnifying-glass" style="color:white;"></i>&nbsp;&nbsp;Explore</button></a>
+            </li>
             {% if user.is_authenticated %}
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="{% url 'profile' user.id %}"><button class="btn navbar-btn"><i class="fa-solid fa-user" style="color: white;"></i>&nbsp;&nbsp;Profile</button></a>
@@ -29,12 +32,19 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'signup' %}"><button class="btn login-btn">Register</button></a>
                 </li>
-                {% endif %}
+              {% endif %}
           </ul>
-          {% comment %} <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form> {% endcomment %}
+          
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchbar" list="profile_results" autocomplete="off">
+            <datalist id="profile_results">
+              {% for profile in profile_results %}
+                <option value="{{profile.user.username}}"/>
+              {% endfor %}
+            </datalist>
+            
+            <button class="btn login-btn" type="submit">Search</button>
+          </form>
         </div>
       </div>
 </nav>
