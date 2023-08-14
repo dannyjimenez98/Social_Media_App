@@ -3,10 +3,15 @@ body, nav {
 }
 
 .navbar {
-    padding: 5px 16px;
+    /* padding: 5px 16px; */
     align-items: flex-start;
     position: fixed;
 }
+
+/* #sidebar {
+    position: sticky;
+    float: right;
+} */
 
 .navbar .container {
     padding: 0;
@@ -19,13 +24,23 @@ body, nav {
     padding: 0;
 }
 
+.nav-tabs {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 12px;
+}
+
 h1, h2, h3, h4, h5, h6, p, span, a, hr, div {
-    color: white;
     margin: 0;
 }
 .text-muted p {
     color:rgb(139, 152, 165);;
     margin: 0;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 /* BUTTONS */
@@ -98,6 +113,7 @@ a {
 a:hover {
     cursor: pointer;
     text-decoration: underline;
+    color: white;
 }
 
 #username-link:hover {
@@ -156,8 +172,11 @@ b {
     justify-content: flex-end; 
 }
 
-#rt-row {
+div#rt-row {
+    font-size: 13px;
     padding: 12px 0 0 0;
+    width: 100%;
+    font-weight: bold;
 }
 
 .row {
@@ -203,6 +222,7 @@ i, .rt-content p {
 .home-feed-container {
     padding: 0;
     margin: 0;
+    width: 100%;
 }
 
 #tweet-form {
@@ -306,7 +326,7 @@ i, .rt-content p {
 }
 
 
-.list-group {
+div#results .list-group {
     border-radius: 20px;
     box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px, rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
     padding: 0;
@@ -320,3 +340,22 @@ i, .rt-content p {
 .result:not(:last-child) {
     border-bottom: 0.5px solid gray;
 }
+
+.follow-suggestions-card .card {
+    border-radius: 20px;
+}
+
+div#suggestion-list li {
+    background-color: rgba(0,0,0,0);
+    color: white;
+    border: none;
+}
+
+div#suggestion-list li:last-child {
+    border-radius: 0 0 20px 20px;
+}
+
+div#suggestion-list li:hover {
+    background-color: rgba(255, 255, 255, 0.1)
+}
+

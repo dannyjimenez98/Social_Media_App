@@ -1,0 +1,32 @@
+{% load static %}
+
+{% block content %}
+<div class="container follow-container">
+    <div class="row">
+        <div class="col-1 tweet-col">
+            <img
+                src="{{profile.profile_pic.url}}"
+                class="rounded-circle"
+                alt="{{profile.user.username}}'s Profile Picture"
+                width="40"
+                height="40"
+            />
+        </div>
+
+        <div class="col-10">			
+            <div class="follow-username-container">
+                {% if profile.name %}
+                    <p class="profile-name font-weight-bold"><a href="{% url 'profile' profile.user.id %}">{{profile.name}}</a></p>
+                {% else %}
+                    <p class="profile-name font-weight-bold"></p>
+                {% endif %}
+
+                <a href="{% url 'profile' profile.user.id %}" id="username-link">
+                    <p>@{{profile.user.username}}</p>
+                </a>
+            </div>
+            <p>{{profile.profile_bio}}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

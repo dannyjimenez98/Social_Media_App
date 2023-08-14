@@ -4,7 +4,7 @@ from tweets.models import Tweet
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(null=True, blank=True, max_length=10)
+    name = models.CharField(null=True, blank=True, max_length=10, default=" ")
     profile_pic = models.ImageField(default='default_profile_picture.jpeg', upload_to='media/')
     profile_bio = models.CharField(null=True, blank=True, max_length=50)
 

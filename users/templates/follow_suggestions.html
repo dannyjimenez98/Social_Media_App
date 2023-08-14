@@ -1,0 +1,12 @@
+{% load static %}
+
+{% block content %}
+    {% if suggested_profiles %}
+      {% for profile in suggested_profiles|slice:":3" %}
+        {% include 'partials/profile_list.html' with profile=profile %}
+      {% endfor %}
+    {% endif %}
+    <li class="list-group-item">
+        <a href="">Show More</a>
+    </li>
+{% endblock %}

@@ -5,34 +5,7 @@
 <div class="row">
     <h1>Followers</h1>
     {% for follower in followers %}
-    <div class="container follow-container">
-        <div class="row">
-            <div class="col-1 tweet-col">
-                <img
-                    src="{{ follower.user.profile_pic.url }}"
-                    class="rounded-circle"
-                    alt="{{follower.user.user.username}}'s Profile Picture"
-                    width="40"
-                    height="40"
-                />
-            </div>
-    
-            <div class="col-10">			
-                <div class="follow-username-container">
-                    {% if follower.user.name %}
-                        <h5 class="profile-name"><a href="{% url 'profile' follower.user.user.id %}">{{follower.user.name}}</a></h5>
-                    {% else %}
-                        <h5 class="profile-name"></h5>
-                    {% endif %}
-    
-                    <a href="{% url 'profile' follower.user.user.id %}" id="username-link">
-                        <p>@{{follower.user.user.username}}</p>
-                    </a>
-                </div>
-                <p>{{follower.user.profile_bio}}</p>
-            </div>
-        </div>
-    </div>
+        {% include 'partials/profile_list.html' with profile=follower.user %}
     {% endfor %}
 </div>
 {%endblock%}

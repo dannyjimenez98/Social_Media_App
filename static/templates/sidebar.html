@@ -1,5 +1,5 @@
 {% load static %}
-<div class="container flex-column m-3">
+<div class="container flex-column mt-3">
   <form class="d-flex" role="search">
     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchbar" list="profile_results" autocomplete="off">
     {% comment %} <datalist id="profile_results">
@@ -10,4 +10,20 @@
     
     {% comment %} <button class="btn login-btn" type="submit">Search</button> {% endcomment %}
   </form>
+
+  {% if user.is_authenticated %}
+
+  <div class="follow-suggestions-card" hx-get="{% url 'follow_suggestions' %}" hx-target="#suggestion-list" hx-trigger="load, changed">
+    <div class="card" style="border-radius: 20px;">
+      <div class="card-body">
+        <h5 class="card-title"><strong>Who to Follow</strong></h5>
+      </div>
+      <div id="suggestion-list">
+        <ul class="list-group list-group-flush">
+          {% include 'follow_suggestions.html' %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  {% endif %}
 </div>

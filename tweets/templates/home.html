@@ -3,7 +3,7 @@
 {% block content %}
 <div class="row">
 	<div class="home-feed-container">
-		<h1 style="margin:12px;">Home</h1>
+		<h5 style="margin:12px;">Home</h5>
 		<hr>
 		{% if form %}
 		<div class="container tweet-container">
@@ -31,7 +31,8 @@
 		{% endif %}
 
       	{% for tweet in tweets %}
-		<div class="container tweet-container">
+			{% include 'partials/tweet.html' %}
+		<!-- <div class="container tweet-container">
 			<div class="row">
 
 				{% comment %} RETWEETED POST {% endcomment %}
@@ -55,9 +56,9 @@
 					<div class="col-10">			
 						<div class="tweet-username-container">
 							{% if tweet.parent.user.profile.name %}
-								<h5 class="profile-name"><a href="{% url 'profile' tweet.parent.user.id %}">{{tweet.parent.user.profile.name}}</a></h5>
+								<p class="profile-name font-weight-bold"><a href="{% url 'profile' tweet.parent.user.id %}">{{tweet.parent.user.profile.name}}</a></p>
 							{% else %}
-								<h5 class="profile-name"></h5>
+								<p class="profile-name font-weight-bold"></p>
 							{% endif %}
 
 							<a href="{% url 'profile' tweet.parent.user.id %}" id="username-link">
@@ -74,6 +75,7 @@
 							<div class="action-count">
 								{% if tweet.parent.is_reply %}
 									<i class="fa-regular fa-comment" style="color: rgb(66, 83, 100);"></i>
+									<p class="count"> </p>
 								{% else %}
 									<i class="fa-regular fa-comment"></i>
 									<p class="count">{{tweet.parent.replies_count}}</p>
@@ -132,9 +134,9 @@
 					<div class="col-10">
 						<div class="tweet-username-container">
 							{% if tweet.user.profile.name %}
-								<h5 class="profile-name"><a href="{% url 'profile' tweet.user.id %}">{{tweet.user.profile.name}}</a></h5>
+								<p class="profile-name font-weight-bold"><a href="{% url 'profile' tweet.user.id %}">{{tweet.user.profile.name}}</a></p>
 							{% else %}
-								<h5 class="profile-name"></h5>
+								<p class="profile-name font-weight-bold"></p>
 							{% endif %}
 							<a href="{% url 'profile' tweet.user.id %}" id="username-link">
 								<p>@{{tweet.user.username}}</p>
@@ -151,6 +153,7 @@
 							<div class="action-count">
 								{% if tweet.is_reply %}
 									<i class="fa-regular fa-comment" style="color: rgb(66, 83, 100);"></i>
+									<p class="count"></p>
 								{% else %}
 									<i class="fa-regular fa-comment"></i>
 									<p class="count">{{tweet.replies_count}}</p>
@@ -193,7 +196,7 @@
 					</div>
 				{% endif %}
 			</div>
-		</div>	
+		</div>	-->
 		{% endfor %}
 	</div>
 </div>

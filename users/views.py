@@ -129,6 +129,17 @@ def search(request):
     
     return render(request, 'search.html')
 
+def follow_suggestions(request):
+    if request.user.is_authenticated:
+        if request.htmx:
+            user = Profile.objects.get(user=request.user)
+            # get profiles user does not follow yet
+            suggested_profiles=[p for p in Profile.objects.all() if p not in Follow.objects.filter(user=user) and p != user]
+            return render(request, 'follow_suggestions.html', {'suggested_profiles': suggested_profiles})
+        else:
+            return render(request, 'sidebar.html')
+    else:
+        return redirect('home')
 # def navbar_search(request):
 #     # if request made with htmx
 #     if request.htmx:
