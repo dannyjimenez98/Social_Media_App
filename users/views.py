@@ -140,16 +140,3 @@ def follow_suggestions(request):
             return render(request, 'sidebar.html')
     else:
         return redirect('home')
-# def navbar_search(request):
-#     # if request made with htmx
-#     if request.htmx:
-#         search = request.GET.get('nav-query')
-#         if search:
-#             # filter profile results based on username
-#             profile_results = [p for p in Profile.objects.all() if search in p.user.username]
-#         else:
-#             profile_results = Profile.objects.none()
-
-#         return render(request, 'navbar_search_results.html', {'profile_results': profile_results})
-    
-#     return render(request, 'navbar.html')

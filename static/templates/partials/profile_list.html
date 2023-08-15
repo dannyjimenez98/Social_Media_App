@@ -1,9 +1,9 @@
 {% load static %}
 
 {% block content %}
-<div class="container follow-container">
-    <div class="row">
-        <div class="col-1 tweet-col">
+<div class="container follow-container p-0">
+    <div class="row" id="profile_display">
+        <div class="col-2 tweet-col">
             <img
                 src="{{profile.profile_pic.url}}"
                 class="rounded-circle"
@@ -13,20 +13,19 @@
             />
         </div>
 
-        <div class="col-10">			
-            <div class="follow-username-container">
-                {% if profile.name %}
-                    <p class="profile-name font-weight-bold"><a href="{% url 'profile' profile.user.id %}">{{profile.name}}</a></p>
-                {% else %}
-                    <p class="profile-name font-weight-bold"></p>
-                {% endif %}
-
-                <a href="{% url 'profile' profile.user.id %}" id="username-link">
-                    <p>@{{profile.user.username}}</p>
-                </a>
+        <div class="col-9 p-0">		
+                <div class="follow-username-container">
+                    {% if profile.name %}
+                        <p class="profile-name font-weight-bold"><a href="{% url 'profile' profile.user.id %}">{{profile.name}}</a></p>
+                    {% else %}
+                        <p class="profile-name font-weight-bold"></p>
+                    {% endif %}
+    
+                    <a href="{% url 'profile' profile.user.id %}" id="username-link">
+                        <p>@{{profile.user.username}}</p>
+                    </a>
+                </div>
             </div>
-            <p>{{profile.profile_bio}}</p>
         </div>
     </div>
-</div>
 {% endblock %}

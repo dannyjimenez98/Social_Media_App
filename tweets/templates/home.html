@@ -9,13 +9,15 @@
 		<div class="container tweet-container">
 			<div class="row" style="padding-top: 12px;">
 				<div class="col-1 tweet-col">
-					<img
-					src="{{ current_user.profile_pic.url }}"
-					class="rounded-circle"
-					alt="{{current_user.username}}'s Profile Picture"
-					width="40"
-					height="40"
-					/>
+					<a href="{% url 'profile' user.id %}">
+						<img
+						src="{{ current_user.profile_pic.url }}"
+						class="rounded-circle"
+						alt="{{current_user.username}}'s Profile Picture"
+						width="40"
+						height="40"
+						/>
+					</a>
 				</div>
 				<div class="col-10 tweet-form-container">
 					<form method="POST" id="tweet-form">
@@ -32,171 +34,6 @@
 
       	{% for tweet in tweets %}
 			{% include 'partials/tweet.html' %}
-		<!-- <div class="container tweet-container">
-			<div class="row">
-
-				{% comment %} RETWEETED POST {% endcomment %}
-				{% if tweet.is_retweet %}
-					<div class="row" id="rt-row">
-						<div class="col-1 tweet-col rt-content" style="align-items: center;"><i class="fa-solid fa-retweet"></i></div>
-						
-						<div class="col-10 rt-content"><a href="{% url 'profile' tweet.user.id %}"><p>{{tweet.user.profile.name}} retweeted</p></a></div>
-						
-					</div>
-
-					<div class="col-1 tweet-col">
-						<img
-							src="{{ tweet.parent.user.profile.profile_pic.url }}"
-							class="rounded-circle"
-							alt="{{tweet.parent.user.username}}'s Profile Picture"
-							width="40"
-							height="40"
-						/>
-					</div>
-					<div class="col-10">			
-						<div class="tweet-username-container">
-							{% if tweet.parent.user.profile.name %}
-								<p class="profile-name font-weight-bold"><a href="{% url 'profile' tweet.parent.user.id %}">{{tweet.parent.user.profile.name}}</a></p>
-							{% else %}
-								<p class="profile-name font-weight-bold"></p>
-							{% endif %}
-
-							<a href="{% url 'profile' tweet.parent.user.id %}" id="username-link">
-								<p>@{{tweet.parent.user.username}}</p>
-							</a>
-							&nbsp;
-							<p> • {{tweet.parent.created_at|timesince}} ago</p>
-						</div>
-
-						<a href="{% url 'show_tweet' tweet.parent.id %}" id="show-tweet-link">
-							<p>{{tweet.parent.body}}</p>
-						</a> 
-						<div class="home-tweet-action-container">
-							<div class="action-count">
-								{% if tweet.parent.is_reply %}
-									<i class="fa-regular fa-comment" style="color: rgb(66, 83, 100);"></i>
-									<p class="count"> </p>
-								{% else %}
-									<i class="fa-regular fa-comment"></i>
-									<p class="count">{{tweet.parent.replies_count}}</p>
-								{% endif %}
-							</div>
-
-							<div class="action-count">
-								{% if user in tweet.parent.retweeters %}
-									<a href="{% url 'retweet' tweet.id %}"><i class="fa-solid fa-retweet" style="color: rgb(0, 186, 124);"></i></a>
-									<p class="count" style="color: rgb(0, 186, 124);">{{tweet.parent.retweet_count}}</p>
-								{% else %}
-									<a href="{% url 'retweet' tweet.id %}"><i class="fa-solid fa-retweet"></i></a>
-									<p class="count">{{tweet.parent.retweet_count}}</p>
-								{% endif %}
-							</div>
-
-							<div class="action-count">
-								{% if user in tweet.parent.likes.all %}
-								<a href="{% url 'like_tweet' tweet.parent.id %}"><i class="fa-solid fa-heart" style="color: rgb(249, 24, 128)"></i></a>
-								<p class="count" style="color: rgb(249, 24, 128)">{{tweet.parent.likes_count}}</p>
-								{% else %}
-								<a href="{% url 'like_tweet' tweet.parent.id %}"><i class="fa fa-heart-o"></i></a>
-								<p class="count">{{tweet.parent.likes_count}}</p>
-								{% endif %} 
-							</div>
-							<div class="action-count">
-								{% if user in tweet.parent.bookmarks.all %}
-									<a href="{% url 'bookmark' tweet.parent.id %}"><i class="fa-solid fa-bookmark" style="color: rgb(29, 155, 240);"></i></a>
-									<p class="count" style="color: rgb(29, 155, 240);">{{tweet.parent.bookmarks_count}}</p>
-								{% else %}
-									<a href="{% url 'bookmark' tweet.parent.id %}"><i class="fa-regular fa-bookmark"></i></a>
-									<p class="count">{{tweet.parent.bookmarks_count}}</p>
-								{% endif %} 
-							</div>
-						</div>
-						
-					</div>
-
-				{% comment %} ORIGINAL TWEET {% endcomment %}
-				{% else %}
-					<div class="row" id="rt-row">
-						<div class="col-1 tweet-col rt-content" style="align-items: center;"></div>
-						<div class="col-10 rt-content"></div>
-					</div>
-					<div class="col-1 tweet-col">
-						<a href="{% url 'profile' tweet.user.id %}">
-							<img
-							src="{{ tweet.user.profile.profile_pic.url }}"
-							class="rounded-circle"
-							alt="{{tweet.user.username}}'s Profile Picture"
-							width="40"
-							height="40"
-							/>
-						</a>
-					</div>
-					<div class="col-10">
-						<div class="tweet-username-container">
-							{% if tweet.user.profile.name %}
-								<p class="profile-name font-weight-bold"><a href="{% url 'profile' tweet.user.id %}">{{tweet.user.profile.name}}</a></p>
-							{% else %}
-								<p class="profile-name font-weight-bold"></p>
-							{% endif %}
-							<a href="{% url 'profile' tweet.user.id %}" id="username-link">
-								<p>@{{tweet.user.username}}</p>
-							</a>
-							&nbsp;
-							<p> • {{tweet.created_at|timesince}} ago</p>
-						</div>
-	
-						<a href="{% url 'show_tweet' tweet.id %}" id="show-tweet-link">
-							<p>{{tweet.body}}</p>
-						</a>
-	 
-						<div class="home-tweet-action-container">
-							<div class="action-count">
-								{% if tweet.is_reply %}
-									<i class="fa-regular fa-comment" style="color: rgb(66, 83, 100);"></i>
-									<p class="count"></p>
-								{% else %}
-									<i class="fa-regular fa-comment"></i>
-									<p class="count">{{tweet.replies_count}}</p>
-								{% endif %}
-							</div>
-
-							{% comment %} RETWEETS {% endcomment %}
-							<div class="action-count">
-								{% if user in tweet.retweeters %}
-									<a href="{% url 'retweet' tweet.id %}"><i class="fa-solid fa-retweet" style="color: rgb(0, 186, 124);"></i></a>
-									<p class="count" style="color: rgb(0, 186, 124);">{{tweet.retweet_count}}</p>
-								{% else %}
-									<a href="{% url 'retweet' tweet.id %}"><i class="fa-solid fa-retweet"></i></a>
-									<p class="count">{{tweet.retweet_count}}</p>
-								{% endif %}
-							</div>
-
-							{% comment %} LIKES {% endcomment %}
-							<div class="action-count">
-								{% if user in tweet.likes.all %}
-								<a href="{% url 'like_tweet' tweet.id %}"><i class="fa-solid fa-heart" style="color: rgb(249, 24, 128);"></i></a>
-								<p class="count" style="color: rgb(249, 24, 128)">{{tweet.likes_count}}</p>
-								{% else %}
-								<a href="{% url 'like_tweet' tweet.id %}"><i class="fa fa-heart-o"></i></a>
-								<p class="count">{{tweet.likes_count}}</p>
-								{% endif %} 
-							</div>
-
-							{% comment %} BOOKMARKS {% endcomment %}
-							<div class="action-count">
-								{% if user in tweet.bookmarks.all %}
-									<a href="{% url 'bookmark' tweet.id %}"><i class="fa-solid fa-bookmark" style="color: rgb(29, 155, 240);"></i></a>
-									<p class="count" style="color: rgb(29, 155, 240);">{{tweet.bookmarks_count}}</p>
-								{% else %}
-									<a href="{% url 'bookmark' tweet.id %}"><i class="fa-regular fa-bookmark"></i></a>
-									<p class="count">{{tweet.bookmarks_count}}</p>
-								{% endif %} 
-							</div>
-						</div>
-					</div>
-				{% endif %}
-			</div>
-		</div>	-->
 		{% endfor %}
 	</div>
 </div>

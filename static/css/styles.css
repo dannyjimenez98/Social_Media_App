@@ -2,12 +2,18 @@ body, nav {
     background-color: rgb(21, 32, 43);
 }
 
+
 .navbar {
     /* padding: 5px 16px; */
     align-items: flex-start;
     position: fixed;
 }
 
+#navbar {
+    display: flex;
+    justify-content: right;
+    /* max-width: 300px; */
+}
 /* #sidebar {
     position: sticky;
     float: right;
@@ -19,9 +25,10 @@ body, nav {
 }
 
 #content {
-    border-left: 1px solid gray;
-    border-right: 1px solid gray;
+    border-left: 1px solid rgb(139, 152, 165);
+    border-right: 1px solid rgb(139, 152, 165);
     padding: 0;
+    max-width: 600px;
 }
 
 .nav-tabs {
@@ -85,7 +92,7 @@ h1, h2, h3, h4, h5, h6, p, span, a, hr, div {
 /* end Buttons */
 
 /* Forms */
-.tweet-form-container .form-control, .form-control:focus {
+.tweet-form-container .form-control {
     background-color: rgba(0,0,0,0);
     color: white;
     border: none;
@@ -96,12 +103,17 @@ form#tweet-form {
 }
 
 input#searchbar {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+input#searchbar, #searchbar-icon {
     background-color: rgba(255, 255, 255, 0.1);
     border: none;
 }
 
 input#searchbar:focus {
-    background-color: rgba(0, 0, 0, 0);
+    /* background-color: rgba(0, 0, 0, 0); */
     border: rgb(29, 155, 240);
 }
 /* end Forms */
@@ -152,7 +164,7 @@ a:hover {
     justify-content: space-between;
     align-items: center;
     /* padding: 10px 50px; */
-    border-top: 1px solid gray;
+    border-top: 1px solid rgb(139, 152, 165);
 }
 
 b {
@@ -162,7 +174,7 @@ b {
 .tweet-container {
     margin: 0;
     padding: 0 16px;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid rgb(139, 152, 165);
 }
 
 .tweet-col {
@@ -247,7 +259,7 @@ i, .rt-content p {
 
 
 #searchbar {
-    border-radius: 50px;
+    /* border-radius: 50px; */
 }
 
 .navbar-btn {
@@ -311,7 +323,6 @@ i, .rt-content p {
 .follow-container {
     margin: 0;
     padding: 0 16px;
-    border-bottom: 1px solid gray;
 }
 
 .follow-username-container {
@@ -326,10 +337,11 @@ i, .rt-content p {
 }
 
 
-div#results .list-group {
+div#results .list-group, div#sb-results .list-group {
     border-radius: 20px;
     box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px, rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
     padding: 0;
+    width: 100%;
 }
 
 .result {
@@ -338,7 +350,7 @@ div#results .list-group {
 }
 
 .result:not(:last-child) {
-    border-bottom: 0.5px solid gray;
+    border-bottom: 0.5px solid rgb(139, 152, 165);
 }
 
 .follow-suggestions-card .card {
@@ -357,5 +369,24 @@ div#suggestion-list li:last-child {
 
 div#suggestion-list li:hover {
     background-color: rgba(255, 255, 255, 0.1)
+}
+
+#profile_display {
+    padding-top: 12px;
+}
+
+#searchbar-icon {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    /* padding: 6px 16px; */
+    padding-left: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.searchbar-input {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
 }
 
