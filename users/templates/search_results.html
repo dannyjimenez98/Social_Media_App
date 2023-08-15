@@ -3,7 +3,7 @@
 {% block content %}
     {% if profile_results %}
         <ul class="list-group  list-group-flush p-2" id="search-results">
-            {% for profile in profile_results %}
+            {% for profile in profile_results|slice:":5" %}
                 {% include 'partials/profile_list.html' with profile=profile %}
             {% endfor %}
         </ul>

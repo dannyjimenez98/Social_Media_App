@@ -5,16 +5,18 @@
 {% if user.is_authenticated %}
 <h1>You are already logged in</h1>
 {% else %}
-<h1>Login</h1>
-<form method="POST" action="{% url 'login' %}">{% csrf_token %}
-    <div class="mb-3">
-        <input type="text" class="form-control" name="username" placeholder="Username">
-    </div>
-    <div class="mb-3">
-        <input type="password" class="form-control" name="password" placeholder="Password">
-    </div>
-    <br>
-    <button type="submit" class="btn btn-secondary">Log In</button>
-</form>
+<div class="container mt-4">
+    <h1>Login</h1>
+    <form method="POST" action="{% url 'login' %}">{% csrf_token %}
+        <div class="mb-3">
+            <input type="text" class="form-control" name="username" placeholder="Username">
+        </div>
+        <div class="mb-3">
+            <input type="password" class="form-control" name="password" placeholder="Password">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-secondary">Log In</button>
+    </form>
+</div>
 {% endif %}
 {% endblock %}
