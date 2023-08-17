@@ -3,16 +3,16 @@ body, nav {
 }
 
 .navbar {
-    /* padding: 5px 16px; */
+    padding: 5px 16px;
     align-items: flex-start;
     position: fixed;
 }
 
-#navbar {
+div#navbar {
     display: flex;
-    justify-content: right;
-    /* max-width: 300px; */
+    justify-content: left;
 }
+
 /* #sidebar {
     position: sticky;
     float: right;
@@ -389,3 +389,12 @@ div#suggestion-list li:hover {
     width: 100%;
 }
 
+div#content-row {
+    display: flex;
+    justify-content: center;
+}
+
+.nav-item {
+    display: flex;
+    justify-content: flex-start;
+}

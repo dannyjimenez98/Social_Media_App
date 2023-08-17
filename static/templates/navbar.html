@@ -1,6 +1,15 @@
 {% load static %}
 <nav class="navbar navbar-expand" data-bs-theme="dark">
     <div class="container flex-column">
+      {% comment %} <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_of_Twitter.svg/512px-Logo_of_Twitter.svg.png?20220821125553" alt="" width="34" height="28" >
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_of_Twitter.svg/512px-Logo_of_Twitter.svg.png?20220821125553" alt="" width="34" height="28" >
+        </span>
+      </button> {% endcomment %}
+
         <a class="navbar-brand" href="{% url 'home' %}">
           <button class="btn btn-link">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_of_Twitter.svg/512px-Logo_of_Twitter.svg.png?20220821125553" alt="" width="34" height="28" >
@@ -15,7 +24,7 @@
               <a class="nav-link active" aria-current="page" href="{% url 'home' %}">
                 <button class="btn btn-link">
                   <i class="fa-solid fa-house" style="color:white;"></i>
-                  <span>Home</span>
+                  <span class="d-md-none d-lg-inline-flex">Home</span>
                 </button>
               </a>
             </li>
@@ -23,7 +32,7 @@
               <a class="nav-link active" aria-current="page" href="{% url 'search' %}">
                 <button class="btn btn-link">
                   <i class="fa-solid fa-magnifying-glass" style="color:white;"></i>
-                  <span>Explore</span>
+                  <span class="d-md-none d-lg-inline-flex">Explore</span>
                 </button>
               </a>
             </li>
@@ -32,7 +41,7 @@
                   <a class="nav-link active" aria-current="page" href="{% url 'profile' user.id %}">
                     <button class="btn btn-link">
                       <i class="fa-solid fa-user" style="color: white;"></i>
-                      <span>Profile</span>
+                      <span class="d-md-none d-lg-inline-flex">Profile</span>
                     </button>
                   </a>
                 </li>
@@ -40,24 +49,33 @@
                   <a class="nav-link active" aria-current="page" href="{% url 'bookmarks_list' %}">
                     <button class="btn btn-link">
                       <i class="fa-solid fa-bookmark" style="color: white;"></i>
-                      <span>Bookmarks</span>
+                      <span class="d-md-none d-lg-inline-flex">Bookmarks</span>
                     </button>
                   </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">
-                      <button class="btn btn-primary">Log out</button>
+                      <button class="btn btn-primary">
+                        <i class="fa-solid fa-right-from-bracket" style="color: white;"></i>
+                        <span class="d-md-none d-lg-inline-flex">Log out</span>
+                      </button>
                     </a>
                 </li>
                 {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">
-                      <button class="btn btn-primary">Login</button>
+                      <button class="btn btn-primary">
+                        <i class="fa-solid fa-right-to-bracket" style="color: white;"></i>
+                        <span class="d-md-none d-lg-inline-flex">Log In</span>
+                      </button>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'signup' %}">
-                      <button class="btn btn-primary">Register</button>
+                      <button class="btn btn-primary">
+                        <i class="fa-solid fa-address-card" style="color: white;"></i>
+                        <span class="d-md-none d-lg-inline-flex">Register</span>
+                      </button>
                     </a>
                 </li>
               {% endif %}

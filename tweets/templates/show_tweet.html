@@ -170,9 +170,10 @@
 
             {% comment %} REPLIES {% endcomment %}
             {% if not tweet.is_reply %}
-                <h3>Replies</h3>
-                {% if form %}
-                <div class="tweet-form-container">
+            {% if form %}
+            <h3>Replies</h3>
+            <br>
+            <div class="container tweet-form-container">
                     <form method="POST" id="tweet-form">
                         {% csrf_token %} {{form.as_p}}
                         <div class="tweet-btn-container">

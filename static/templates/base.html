@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Social Media App</title>
+        <title>Twitter Clone</title>
         
         {% load bootstrap5 %}
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
@@ -13,27 +13,26 @@
         <script type="text/javascript" src="{% static 'js/htmx.min.js' %}" defer></script>
     </head>
     <body>
-        <div class="container">
+        <div class="container-fluid">
             {% if messages %}
-                {% for message in messages %}
-                <div class="row">
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        {{message}}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </div>
-                {% endfor %}
-            {% endif %}
-
+            {% for message in messages %}
             <div class="row">
-                <div class="col-lg-3 p-0" id="navbar">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+            <div class="row" id="content-row">
+                <div class="col-lg-2 col-md-1 p-0" id="navbar">
                     {% include 'navbar.html' %}
                 </div>
-                <div class="col-lg-5" id="content">
+                <div class="col-lg-7 col-md-11" id="content">
                     {% block content %}
                     {% endblock %}
                 </div>
-                <div class="col-lg-4 p-0" id="sidebar">
+                <div class="col-lg-3 d-none d-lg-block" id="sidebar">
                     {% include 'sidebar.html' %}
                 </div>
             </div>
