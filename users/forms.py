@@ -5,9 +5,10 @@ from .models import Profile
 
 
 class SignUpForm(UserCreationForm):
-    email = forms.EmailField(label='', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email Address'}))
-    # first_name = forms.CharField(label='', max_length=50, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First Name'}))
-    # Last_name = forms.CharField(label='', max_length=50, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name'}))
+    username = forms.CharField(label='Username', max_length=50, widget=forms.TextInput(attrs={'class':'form-control row mb-3', 'placeholder':'Username'}))
+    email = forms.EmailField(label='Email', widget=forms.TextInput(attrs={'class':'form-control row mb-3', 'type':'email','placeholder':'name@email.com'}))
+    password1 = forms.CharField(label='Password', max_length=50, widget=forms.TextInput(attrs={'class':'form-control row mb-3', 'type':'password', 'placeholder':'Password'}))
+    password2 = forms.CharField(label='Confirm Password', max_length=50, widget=forms.TextInput(attrs={'class':'form-control row mb-3', 'type':'password', 'placeholder':'Confirm Password'}))
 
     class Meta:
         model = User
@@ -15,6 +16,8 @@ class SignUpForm(UserCreationForm):
         # fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
 
 class EditProfileForm(forms.ModelForm):
+    name = forms.CharField(label='Name',  max_length=10, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Name'}))
+    profile_bio = forms.CharField(label='Profile Bio',  max_length=50, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Profile Bio'}))
     class Meta:
         model = Profile
         fields =['name', 'profile_pic', 'profile_bio']

@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="row">
-    <h1>Following</h1>
+    <h1 class="p-4">Following</h1>
     {% for follow in follows %}
         {% include 'partials/profile_list.html' with profile=follow.follow_user %}
     {% endfor %}

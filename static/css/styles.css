@@ -4,13 +4,13 @@ body, nav {
 
 .navbar {
     padding: 5px 16px;
-    align-items: flex-start;
+    align-items: flex-end;
     position: fixed;
 }
 
 div#navbar {
     display: flex;
-    justify-content: left;
+    justify-content: right;
 }
 
 /* #sidebar {
@@ -95,6 +95,10 @@ h1, h2, h3, h4, h5, h6, p, span, a, hr, div {
     background-color: rgba(0,0,0,0);
     color: white;
     border: none;
+}
+
+#signup-form-container .form-control {
+    /* margin-top: 25px; */
 }
 
 form#tweet-form {
@@ -256,9 +260,12 @@ i, .rt-content p {
     justify-content: flex-end;
 }
 
-
-#searchbar {
-    /* border-radius: 50px; */
+.form-btn-container {
+    margin-top: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .navbar-btn {

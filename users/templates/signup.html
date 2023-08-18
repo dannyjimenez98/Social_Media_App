@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container mt-3">
+<div class="container mt-3" id="signup-form-container">
     <h1>Signup</h1>
     <form method="POST">{% csrf_token %}
-        {{form}}
-        <input type="submit" value="Signup">
+        {{form|crispy}}
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping">@</span>
+          </div>
+        <div class="form-btn-container">
+            <button type="submit" class="btn btn-secondary" value="Sign up">Sign Up</button>
+        </div>
     </form>
 </div>
 {% endblock %}
