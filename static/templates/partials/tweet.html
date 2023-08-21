@@ -36,6 +36,10 @@
                     </a>
                     &nbsp;
                     <p> • {{tweet.parent.created_at|timesince}} ago</p>
+                    &nbsp;
+                    {% if request.user.username == tweet.parent.user.profile.user.username %}
+                        <a href="{% url 'delete_tweet' tweet.id %}"><i class="fas fa-trash-alt" style="color: #dc3545;"></i></a>
+                    {% endif %}
                 </div>
 
                 <a href="{% url 'show_tweet' tweet.parent.id %}" id="show-tweet-link">
@@ -80,6 +84,8 @@
                             <p class="count">{{tweet.parent.bookmarks_count}}</p>
                         {% endif %} 
                     </div>
+
+                    
                 </div>
                 
             </div>
@@ -113,6 +119,10 @@
                     </a>
                     &nbsp;
                     <p> • {{tweet.created_at|timesince}} ago</p>
+                    &nbsp;
+                    {% if request.user.username == tweet.user.profile.user.username %}
+                        <a href="{% url 'delete_tweet' tweet.id %}"><i class="fas fa-trash-alt" style="color: #dc3545;"></i></a>
+                    {% endif %}
                 </div>
 
                 <a href="{% url 'show_tweet' tweet.id %}" id="show-tweet-link">

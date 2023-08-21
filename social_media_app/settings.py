@@ -31,6 +31,8 @@ INSTALLED_APPS = [
     'bootstrap5',
     'crispy_forms',
     'crispy_bootstrap5',
+    'rest_framework',
+    'api',
     'tweets',
     'users'
 ]

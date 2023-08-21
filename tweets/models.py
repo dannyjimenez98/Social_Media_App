@@ -1,14 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-""" TODO:
-    [ ] fix to current timezone
-    [ ] tweak error message when going over character limit
-    [X] add likes
-    [X] add RTs
-    [ ] add comments
-"""
-
 class Tweet(models.Model):
     parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -16,8 +8,8 @@ class Tweet(models.Model):
     created_at = models.DateTimeField(auto_now_add=True) 
     likes = models.ManyToManyField(User, related_name='tweet_likes', blank=True)
     bookmarks = models.ManyToManyField(User, related_name='tweet_bookmarks', blank=True)
-    reply_to = models.ForeignKey("self", related_name='replied_to', null=True, blank=True, on_delete=models.CASCADE) # look back on CASCADE option
-
+    reply_to = models.ForeignKey("self", related_name='replied_to', null=True, blank=True, on_delete=models.CASCADE) 
+    
     def likes_count(self):
         return self.likes.count()
     
@@ -28,6 +20,9 @@ class Tweet(models.Model):
         return Tweet.objects.filter(parent=self).count()
     
     def retweeters(self):
+        '''
+        Returns list of users that retweeted this tweet
+        '''
         qs = Tweet.objects.filter(parent=self)
         user_obj_list = []
         for obj in qs:
